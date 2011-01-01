@@ -1,6 +1,21 @@
 l = (output) ->
     console.log(output)
 
+Line = {
+    'id': ->
+        result = ''
+        for char in this.name
+            if char == ' '
+                result += '-'
+            else
+                result += char
+        return result
+    'cost': (income) ->
+        if this.portion?
+            return income * this.portion
+    'amount': -> parseInt($('#' + this.id()).val(), 10)
+}
+
 items = [
     {
         'name': 'a',
@@ -11,6 +26,10 @@ items = [
         'default': 2,
     }
 ]
+
+for item in items
+    for prop of Line
+        item[prop] = Line[prop]
 
 deductions = [
     {
@@ -40,25 +59,57 @@ deductions = [
     },
 ]
 
+for deduction in deductions
+    for prop of Line
+        deduction[prop] = Line[prop]
+
 getTotal = ->
     total = 0
     for item in items
-        total += parseInt($('#' + item.name).val(), 10)
+        total += item.amount()
     return total
 
+lowestThatFits = (lower, upper, criterion, tolerance) ->
+    guess = (upper + lower) / 2
+    if (upper - lower) < tolerance
+        return guess
+    if criterion(guess)
+        return lowestThatFits(lower, guess, criterion, tolerance)
+    else
+        return lowestThatFits(guess, upper, criterion, tolerance)
+
 update = ->
-    $('#your-total').html(getTotal())
+    lowerBound = getTotal()
+    for deduction in deductions
+        lowerBound += deduction.cost(lowerBound)
+    actualTotal = lowestThatFits(lowerBound, lowerBound * 2,
+        (income) ->
+            for deduction in deductions
+                income -= deduction.cost(income)
+            for item in items
+                income -= item.amount()
+            return income >= 0
+        , 0.1)
+    $('#your-total').html(actualTotal)
 
 $(document).ready(->
     for item in items
-        $("#spreadsheet").append("
+        $("#items").append("
         <div class='ctrlHolder'>
           <label for=''>${ item.name }</label>
-          <input name='' id='${ item.name }' value='${ item.default }' size='35' maxlength='50' type='text' class='textInput small'/>
-          <p class='formHint'>This is a form hint.</p>
+          <input name='' id='${ item.id() }' value='${ item.default }' size='35' maxlength='50' type='text' class='textInput small'/>
+          <p class='formHint'>${ if item.desc? then item.desc else '' }</p>
         </div>
         ")
-        $('#' + item.name).change(update)
+        $('#' + item.id()).change(update)
+    for deduction in deductions
+        $("#deductions").append("
+        <div class='ctrlHolder'>
+          <label for=''>${ deduction.name }</label>
+          <input name='' id='${ deduction.id() }' size='35' maxlength='50' type='text' class='textInput small'/>
+          <p class='formHint'>${ if deduction.desc? then deduction.desc else '' }</p>
+        </div>
+        ")
     $("#spreadsheet").append('<tr> <td>Total</td> <td id="default-total">' + String(getTotal()) + '</td> <td id="your-total"></td> </tr>')
     update()
 )
