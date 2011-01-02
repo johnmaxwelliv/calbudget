@@ -4,7 +4,8 @@ l = (output) ->
 Line = {
     'id': ->
         result = ''
-        for c in this.name
+        for i in [0...this.name.length]
+            c = this.name.charAt(i)
             if c == ' '
                 result += '-'
             else if c == '(' or c == ')'
@@ -13,27 +14,31 @@ Line = {
                 result += c
         return result
     'cost': (income) ->
-        if this.portion?
-            return income * this.portion
+        return income * this.portion
     'val': (arg) ->
         if arg?
             $('#' + this.id()).val(arg)
         else
             $('#' + this.id()).val()
-    'amount': ->
+    'updateAmount': ->
         if not this.valid()
             return 0
         interm = ''
         for c in this.val()
             if c != ','
                 interm += c
-        return parseInt(interm, 10)
+        this.amount = parseInt(interm, 10)
+        return this.amount
     'reset': ->
         this.val('0')
     'valid': ->
         if not this.val()
             return false
-        for c in this.val()
+        v = this.val()
+        if v.length > 7
+            return false
+        for i in [0...v.length]
+            c = v.charAt(i)
             if c not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',']
                 return false
         return true
@@ -89,38 +94,44 @@ for deduction in deductions
     for prop of Line
         deduction[prop] = Line[prop]
 
-addItems = ->
-    total = 0
-    for item in items
-        total += item.amount()
-    return total
+lowestThatFits = (lower, upper, criterion, tolerance, PID) ->
+    while (upper - lower) > tolerance
+        if PID != latestPID
+            return false
+        guess = (upper + lower) / 2
+        if criterion(guess)
+            upper = guess
+        else
+            lower = guess
+    return (upper + lower) / 2
 
-lowestThatFits = (lower, upper, criterion, tolerance) ->
-    guess = (upper + lower) / 2
-    if (upper - lower) < tolerance
-        return guess
-    if criterion(guess)
-        return lowestThatFits(lower, guess, criterion, tolerance)
-    else
-        return lowestThatFits(guess, upper, criterion, tolerance)
+latestPID = 0
 
 update = ->
-    l('update')
-    lowerBound = addItems()
+    startTime = new Date()
+    PID = startTime.getMilliseconds()
+    latestPID = PID
+
+    totalSpending = 0
+    for item in items
+        totalSpending += item.updateAmount()
+    lowerBound = totalSpending
     for deduction in deductions
         lowerBound += deduction.cost(lowerBound)
+
     actualTotal = lowestThatFits(lowerBound, lowerBound * 2,
         (income) ->
+            remaining = income
             for deduction in deductions
-                income -= deduction.cost(income)
-            for item in items
-                income -= item.amount()
-            return income >= 0
-        , 0.1)
-    $('#your-total').html(Math.round(actualTotal))
-    for deduction in deductions
-        $('#' + deduction.id()).html(Math.round(deduction.cost(actualTotal)))
-    l('updated')
+                remaining -= deduction.cost(income)
+            remaining -= totalSpending
+            return remaining >= 0
+        , 10, PID)
+
+    if actualTotal != false
+        $('#your-total').html(Math.round(actualTotal))
+        for deduction in deductions
+            $('#' + deduction.id()).html(Math.round(deduction.cost(actualTotal)))
 
 $(document).ready(->
     for line in items
