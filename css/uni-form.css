@@ -30,9 +30,8 @@
       .uniForm .inlineLabels .info{ float: left; margin: .3em 2% 0 0; padding: 0; line-height: 1; position: relative; width: 32%; }
       
       /* Float the input elements */
-      .uniForm .inlineLabels .textInput,
-      .uniForm .inlineLabels .selectInput,
-      .uniForm .inlineLabels select{ float: left; width: 64%; }
+      .uniForm .inlineLabels .textInputHolder,
+      .uniForm .inlineLabels .selectInputHolder{ float: left; width: 64%}
 
 /* ----------------------------------------------------------------------------- */
 /* ########################### Additional Stuff ################################ */

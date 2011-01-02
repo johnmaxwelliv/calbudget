@@ -12,6 +12,8 @@
                              -o-border-radius:      3px;
                              -khtml-border-radius:  3px;
                            }
+      .uniForm .dollar { padding: 4px 2px 0px 2px;
+                       }
           .uniForm .ctrlHolder ul li label{ font-size: .85em; }
       
       /* Get rid of the 'glow' effect in WebKit, optional */

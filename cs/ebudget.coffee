@@ -13,7 +13,12 @@ Line = {
     'cost': (income) ->
         if this.portion?
             return income * this.portion
-    'amount': -> parseInt($('#' + this.id()).val(), 10)
+    'amount': ->
+        interm = ''
+        for c in $('#' + this.id()).val()
+            if c != ','
+                interm += c
+        return parseInt(interm, 10)
 }
 
 items = [
@@ -100,7 +105,7 @@ $(document).ready(->
             <label for=''>${ item.name }</label>
             <p class='formHint'>${ if item.desc? then item.desc else '' }</p>
           </div>
-          <input name='' id='${ item.id() }' value='${ item.default }' size='35' maxlength='50' type='text' class='textInput small'/>
+          <div class='textInputHolder'><span class='dollar'>$</span><input name='' id='${ item.id() }' class='textInput small' value='${ item.default }' size='35' maxlength='50' type='text' /></p>
         </div>
         ")
         $('#' + item.id()).change(update)
