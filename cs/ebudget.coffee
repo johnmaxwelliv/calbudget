@@ -15,12 +15,31 @@ Line = {
     'cost': (income) ->
         if this.portion?
             return income * this.portion
+    'val': (arg) ->
+        if arg?
+            $('#' + this.id()).val(arg)
+        else
+            $('#' + this.id()).val()
     'amount': ->
+        if not this.valid()
+            return 0
         interm = ''
-        for c in $('#' + this.id()).val()
+        for c in this.val()
             if c != ','
                 interm += c
         return parseInt(interm, 10)
+    'reset': ->
+        this.val('0')
+    'valid': ->
+        if not this.val()
+            return false
+        for c in this.val()
+            if c not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',']
+                return false
+        return true
+    'sanitize': ->
+        if not this.valid()
+            this.reset()
 }
 
 items = [
@@ -86,6 +105,7 @@ lowestThatFits = (lower, upper, criterion, tolerance) ->
         return lowestThatFits(guess, upper, criterion, tolerance)
 
 update = ->
+    l('update')
     lowerBound = addItems()
     for deduction in deductions
         lowerBound += deduction.cost(lowerBound)
@@ -100,6 +120,7 @@ update = ->
     $('#your-total').html(Math.round(actualTotal))
     for deduction in deductions
         $('#' + deduction.id()).html(Math.round(deduction.cost(actualTotal)))
+    l('updated')
 
 $(document).ready(->
     for line in items
@@ -114,7 +135,13 @@ $(document).ready(->
           </div>
         </div>
         ")
-        $('#' + line.id()).change(update)
+        $('#' + line.id()).keyup(->
+            update()
+        )
+        $('#' + line.id()).blur(->
+            line.sanitize()
+            update()
+        )
     for line in deductions
         $("#deductions").append("
         <div class='ctrlHolder'>
