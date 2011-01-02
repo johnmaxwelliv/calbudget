@@ -8,9 +8,7 @@ Line = {
             c = this.name.charAt(i)
             if c == ' '
                 result += '-'
-            else if c == '(' or c == ')'
-                result += ''
-            else
+            else if c != '(' and c != ')'
                 result += c
         return result
     'cost': (income) ->
