@@ -31,7 +31,7 @@
       
       /* Float the input elements */
       .uniForm .inlineLabels .textInputHolder,
-      .uniForm .inlineLabels .selectInputHolder{ float: left; width: 64%}
+      .uniForm .inlineLabels .selectInputHolder{ float: left; width: 64%; text-align: right; }
 
 /* ----------------------------------------------------------------------------- */
 /* ########################### Additional Stuff ################################ */

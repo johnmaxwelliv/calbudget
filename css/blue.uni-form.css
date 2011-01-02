@@ -11,9 +11,15 @@
                              -moz-border-radius:    3px;
                              -o-border-radius:      3px;
                              -khtml-border-radius:  3px;
+                             font-family: 'Courier New', Courier, monospace;
+                             font-size: 15px;
+                             text-align: right;
                            }
-      .uniForm .dollar { padding: 4px 2px 0px 2px;
-                       }
+      .uniForm .dollar, .output { font-family: 'Courier New', Courier, monospace;
+                                  font-size: 15px;
+                                }
+      .uniForm .dollar { padding: 4px 2px 0px 2px; }
+      .uniForm .output { padding: 4px 8px 4px 2px; }
           .uniForm .ctrlHolder ul li label{ font-size: .85em; }
       
       /* Get rid of the 'glow' effect in WebKit, optional */

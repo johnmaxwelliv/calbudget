@@ -7,6 +7,8 @@ Line = {
         for c in this.name
             if c == ' '
                 result += '-'
+            else if c == '(' or c == ')'
+                result += ''
             else
                 result += c
         return result
@@ -68,7 +70,7 @@ for deduction in deductions
     for prop of Line
         deduction[prop] = Line[prop]
 
-getTotal = ->
+addItems = ->
     total = 0
     for item in items
         total += item.amount()
@@ -84,7 +86,7 @@ lowestThatFits = (lower, upper, criterion, tolerance) ->
         return lowestThatFits(guess, upper, criterion, tolerance)
 
 update = ->
-    lowerBound = getTotal()
+    lowerBound = addItems()
     for deduction in deductions
         lowerBound += deduction.cost(lowerBound)
     actualTotal = lowestThatFits(lowerBound, lowerBound * 2,
@@ -95,30 +97,46 @@ update = ->
                 income -= item.amount()
             return income >= 0
         , 0.1)
-    $('#your-total').html(actualTotal)
+    $('#your-total').html(Math.round(actualTotal))
+    for deduction in deductions
+        $('#' + deduction.id()).html(Math.round(deduction.cost(actualTotal)))
 
 $(document).ready(->
-    for item in items
+    for line in items
         $("#items").append("
         <div class='ctrlHolder'>
           <div class='info'>
-            <label for=''>${ item.name }</label>
-            <p class='formHint'>${ if item.desc? then item.desc else '' }</p>
+            <label for=''>${ line.name }</label>
+            <p class='formHint'>${ if line.desc? then line.desc else '' }</p>
           </div>
-          <div class='textInputHolder'><span class='dollar'>$</span><input name='' id='${ item.id() }' class='textInput small' value='${ item.default }' size='35' maxlength='50' type='text' /></p>
+          <div class='textInputHolder'>
+            <span class='dollar'>$</span><input name='' id='${ line.id() }' class='textInput small' value='${ line.default }' size='35' maxlength='50' type='text' />
+          </div>
         </div>
         ")
-        $('#' + item.id()).change(update)
-    for deduction in deductions
+        $('#' + line.id()).change(update)
+    for line in deductions
         $("#deductions").append("
         <div class='ctrlHolder'>
           <div class='info'>
-            <label for=''>${ deduction.name }</label>
-            <p class='formHint'>${ if deduction.desc? then deduction.desc else '' }</p>
+            <label for=''>${ line.name }</label>
+            <p class='formHint'>${ if line.desc? then line.desc else '' }</p>
           </div>
-          <input name='' id='${ deduction.id() }' data-default-value='Placeholder text' size='35' maxlength='50' type='text' class='textInput small'/>
+          <div class='textInputHolder'>
+            <span class='dollar'>$</span><span id='${ line.id() }' class='output'></span>
+          </div>
         </div>
         ")
-    $("#spreadsheet").append('<tr> <td>Total</td> <td id="default-total">' + String(getTotal()) + '</td> <td id="your-total"></td> </tr>')
+    $("#spreadsheet").append("
+    <div class='ctrlHolder'>
+      <div class='info'>
+        <label for=''>Gross Income Required</label>
+        <p class='formHint'>The monthly income you'll need to afford everything</p>
+      </div>
+      <div class='textInputHolder outputHolder'>
+        <span class='dollar'>$</span><span id='your-total' class='output'></span>
+      </div>
+    </div>
+    ")
     update()
 )
