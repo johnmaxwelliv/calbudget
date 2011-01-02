@@ -22,7 +22,9 @@ Line = {
         if not this.valid()
             return 0
         interm = ''
-        for c in this.val()
+        v = this.val()
+        for i in [0...v.length]
+            c = v.charAt(i)
             if c != ','
                 interm += c
         this.amount = parseInt(interm, 10)
