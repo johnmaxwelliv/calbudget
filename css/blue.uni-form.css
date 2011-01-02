@@ -1,8 +1,6 @@
 .uniForm{ background: #dde8ec; }
     .uniForm .ctrlHolder{ padding: 1em; border-bottom: 1px solid #c4ced1; }
     .uniForm .ctrlHolder.focused{ background: #e1f0f6; }
-        .uniForm .inlineLabels label em,
-        .uniForm .inlineLabels .label em{ font-style: normal; font-weight: bold; }
         .uniForm label small{ font-size: .75em; color: #777; }
         
       .uniForm .textInput,
@@ -21,7 +19,7 @@
       .uniForm .ctrlHolder textarea:focus{ outline: none; }
       
       .uniForm .formHint                    { font-size: .85em; color: #777; }
-      .uniForm .inlineLabels .formHint      { padding-top: .5em; }
+      .uniForm .inlineLabels .formHint      { padding-top: 0em; }
       .uniForm .ctrlHolder.focused .formHint{ color: #333; }
       
 /* ----------------------------------------------------------------------------- */

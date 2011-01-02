@@ -4,11 +4,11 @@ l = (output) ->
 Line = {
     'id': ->
         result = ''
-        for char in this.name
-            if char == ' '
+        for c in this.name
+            if c == ' '
                 result += '-'
             else
-                result += char
+                result += c
         return result
     'cost': (income) ->
         if this.portion?
@@ -96,18 +96,22 @@ $(document).ready(->
     for item in items
         $("#items").append("
         <div class='ctrlHolder'>
-          <label for=''>${ item.name }</label>
+          <div class='info'>
+            <label for=''>${ item.name }</label>
+            <p class='formHint'>${ if item.desc? then item.desc else '' }</p>
+          </div>
           <input name='' id='${ item.id() }' value='${ item.default }' size='35' maxlength='50' type='text' class='textInput small'/>
-          <p class='formHint'>${ if item.desc? then item.desc else '' }</p>
         </div>
         ")
         $('#' + item.id()).change(update)
     for deduction in deductions
         $("#deductions").append("
         <div class='ctrlHolder'>
-          <label for=''>${ deduction.name }</label>
-          <input name='' id='${ deduction.id() }' size='35' maxlength='50' type='text' class='textInput small'/>
-          <p class='formHint'>${ if deduction.desc? then deduction.desc else '' }</p>
+          <div class='info'>
+            <label for=''>${ deduction.name }</label>
+            <p class='formHint'>${ if deduction.desc? then deduction.desc else '' }</p>
+          </div>
+          <input name='' id='${ deduction.id() }' data-default-value='Placeholder text' size='35' maxlength='50' type='text' class='textInput small'/>
         </div>
         ")
     $("#spreadsheet").append('<tr> <td>Total</td> <td id="default-total">' + String(getTotal()) + '</td> <td id="your-total"></td> </tr>')

@@ -6,6 +6,8 @@
   
   /* Some generals and more resets */
   .uniForm fieldset{ border: none; margin: 0; padding: 0; }
+  .uniForm .info{ border: none; margin: 0; padding: 0; }
+  .uniForm .formHint{ border: none; margin: 0.8em 0 0 0; padding: 0 0 0 0; }
     
     /* This are the main units that contain form elements */
     .uniForm .ctrlHolder{ margin: 0; padding: 0; clear: both; }
@@ -25,16 +27,12 @@
 /*    Set the class of the parent (preferably to a fieldset) to .inlineLabels     */
 /* ------------------------------------------------------------------------------ */
 
-      .uniForm .inlineLabels label,
-      .uniForm .inlineLabels .label{ float: left; margin: .3em 2% 0 0; padding: 0; line-height: 1; position: relative; width: 32%; }
+      .uniForm .inlineLabels .info{ float: left; margin: .3em 2% 0 0; padding: 0; line-height: 1; position: relative; width: 32%; }
       
       /* Float the input elements */
       .uniForm .inlineLabels .textInput,
       .uniForm .inlineLabels .selectInput,
       .uniForm .inlineLabels select{ float: left; width: 64%; }
-      
-    /* Postition the hints */
-    .uniForm .inlineLabels .formHint{ clear: both; float: none; width: auto; margin-left: 34%; position: static; }
 
 /* ----------------------------------------------------------------------------- */
 /* ########################### Additional Stuff ################################ */
@@ -48,7 +46,6 @@
       .uniForm .inlineLabels .inlineLabel input,
       .uniForm .blockLabels .inlineLabel input,
       /* class .inlineLabel is depreciated */
-      .uniForm label input{ float: none; display: inline; margin: 0; padding: 0; border: none; }
             
       .uniForm .buttonHolder .inlineLabel,
       .uniForm .buttonHolder label{ float: left; margin: .5em 0 0 0; width: auto; max-width: 60%; text-align: left; }
