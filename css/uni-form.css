@@ -24,11 +24,12 @@
 /*    Set the class of the parent (preferably to a fieldset) to .inlineLabels     */
 /* ------------------------------------------------------------------------------ */
 
-      .uniForm .inlineLabels .info{ float: left; margin: .3em 2% 0 0; padding: 0; line-height: 1; position: relative; width: 32%; }
+      .uniForm .inlineLabels .info{ float: left; margin: .3em 2% 0 0; padding: 0; line-height: 1; position: relative; width: 22%; }
       
       /* Float the input elements */
       .uniForm .inlineLabels .textInputHolder,
-      .uniForm .inlineLabels .selectInputHolder{ float: left; width: 64%; text-align: right; }
+      .uniForm .inlineLabels .selectInputHolder{ float: left; width: 37%; text-align: right; }
+      .uniForm .inlineLabels .textOutputHolder { float: left; width: 74%; text-align: right; }
 
 /* ----------------------------------------------------------------------------- */
 /* ########################### Additional Stuff ################################ */

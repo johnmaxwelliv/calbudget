@@ -31,6 +31,7 @@ Line = {
         return this.amount
     'reset': ->
         this.val('0')
+        $('#' + this.id() + '-sel').val('0')
     'valid': ->
         if not this.val()
             return false
@@ -49,12 +50,13 @@ Line = {
 
 items = [
     {
-        'name': 'a',
-        'default': 1,
-    },
-    {
-        'name': 'b',
-        'default': 2,
+        'name': 'Entertainment',
+        'desc': 'Events, home entertainment, pets, toys, hobbies, etc.',
+        'vals': {
+                    'Average for $60K/yr': 217,
+                    'Average for $40K/yr': 165,
+                    'Average for $25K/yr': 125,
+                },
     }
 ]
 
@@ -135,22 +137,31 @@ update = ->
 
 $(document).ready(->
     for line in items
+        options = ("<option value='${ line.vals[opt] }'>${ opt }</option>" for opt of line.vals)
         $("#items").append("
         <div class='ctrlHolder'>
           <div class='info'>
             <label for=''>${ line.name }</label>
             <p class='formHint'>${ if line.desc? then line.desc else '' }</p>
           </div>
+          <div class='selectInputHolder'>
+          <select id='${ line.id() + '-sel' }'><option value='0'>insert an example value...</option>${ options.join('') }</select>
+          </div>
           <div class='textInputHolder'>
-            <span class='dollar'>$</span><input name='' id='${ line.id() }' class='textInput small' value='${ line.default }' size='35' maxlength='50' type='text' />
+            <span class='dollar'>$</span><input name='' id='${ line.id() }' class='textInput small' value='0' size='35' maxlength='50' type='text' />
           </div>
         </div>
         ")
         $('#' + line.id()).keyup(->
+            $('#' + line.id() + '-sel').val(0)
             update()
         )
         $('#' + line.id()).blur(->
             line.sanitize()
+            update()
+        )
+        $('#' + line.id() + '-sel').change(->
+            line.val($('#' + line.id() + '-sel').val())
             update()
         )
     for line in deductions
@@ -160,21 +171,10 @@ $(document).ready(->
             <label for=''>${ line.name }</label>
             <p class='formHint'>${ if line.desc? then line.desc else '' }</p>
           </div>
-          <div class='textInputHolder'>
+          <div class='textOutputHolder'>
             <span class='dollar'>$</span><span id='${ line.id() }' class='output'></span>
           </div>
         </div>
         ")
-    $("#spreadsheet").append("
-    <div class='ctrlHolder'>
-      <div class='info'>
-        <label for=''>Gross Income Required</label>
-        <p class='formHint'>The monthly income you'll need to afford everything</p>
-      </div>
-      <div class='textInputHolder outputHolder'>
-        <span class='dollar'>$</span><span id='your-total' class='output'></span>
-      </div>
-    </div>
-    ")
     update()
 )
