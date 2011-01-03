@@ -2,40 +2,27 @@ l = (output) ->
     console.log(output)
 
 Line = {
-    'id': ->
-        result = ''
-        for i in [0...this.name.length]
-            c = this.name.charAt(i)
-            if c == ' '
-                result += '-'
-            else if c != '(' and c != ')'
-                result += c
-        return result
     'cost': (income) ->
         return income * this.portion
-    'val': (arg) ->
-        if arg?
-            $('#' + this.id()).val(arg)
-        else
-            $('#' + this.id()).val()
-    'updateAmount': ->
+    'readInput': ->
         if not this.valid()
-            return 0
-        interm = ''
-        v = this.val()
-        for i in [0...v.length]
-            c = v.charAt(i)
-            if c != ','
-                interm += c
-        this.amount = parseInt(interm, 10)
-        return this.amount
+            this.amount = 0
+        else
+            interm = ''
+            v = this.input.val()
+            for i in [0...v.length]
+                c = v.charAt(i)
+                if c != ','
+                    interm += c
+            this.amount = parseInt(interm, 10)
     'reset': ->
-        this.val('0')
-        $('#' + this.id() + '-sel').val('0')
+        this.input.val('0')
+        this.select.val('0')
+        this.amount = 0
     'valid': ->
-        if not this.val()
+        if not this.input.val()
             return false
-        v = this.val()
+        v = this.input.val()
         if v.length > 7
             return false
         for i in [0...v.length]
@@ -48,23 +35,19 @@ Line = {
             this.reset()
 }
 
-items = [
+expenses = [
     {
         'name': 'Entertainment',
         'desc': 'Events, home entertainment, pets, toys, hobbies, etc.',
-        'vals': {
-                    'Average for $60K/yr': 217,
-                    'Average for $40K/yr': 165,
-                    'Average for $25K/yr': 125,
-                },
+        'examples': {
+            'Average for $60K/yr': 217,
+            'Average for $40K/yr': 165,
+            'Average for $25K/yr': 125,
+        },
     }
 ]
 
-for item in items
-    for prop of Line
-        item[prop] = Line[prop]
-
-deductions = [
+taxes = [
     {
         'name': 'Medicare',
         'desc': 'Goes to finance Medicare, which provides health insurance for seniors',
@@ -92,10 +75,6 @@ deductions = [
     },
 ]
 
-for deduction in deductions
-    for prop of Line
-        deduction[prop] = Line[prop]
-
 lowestThatFits = (lower, upper, criterion, tolerance, PID) ->
     while (upper - lower) > tolerance
         if PID != latestPID
@@ -109,72 +88,104 @@ lowestThatFits = (lower, upper, criterion, tolerance, PID) ->
 
 latestPID = 0
 
-update = ->
+updateCalculations = ->
     startTime = new Date()
     PID = startTime.getMilliseconds()
     latestPID = PID
 
     totalSpending = 0
-    for item in items
-        totalSpending += item.updateAmount()
+    for expense in expenses
+        totalSpending += expense.amount
     lowerBound = totalSpending
-    for deduction in deductions
-        lowerBound += deduction.cost(lowerBound)
+    for tax in taxes
+        lowerBound += tax.cost(lowerBound)
 
     actualTotal = lowestThatFits(lowerBound, lowerBound * 2,
         (income) ->
             remaining = income
-            for deduction in deductions
-                remaining -= deduction.cost(income)
+            for tax in taxes
+                remaining -= tax.cost(income)
             remaining -= totalSpending
             return remaining >= 0
-        , 10, PID)
+        , 1, PID)
 
     if actualTotal != false
         $('#your-total').html(Math.round(actualTotal))
-        for deduction in deductions
-            $('#' + deduction.id()).html(Math.round(deduction.cost(actualTotal)))
+        for tax in taxes
+            tax.output.html(Math.round(tax.cost(actualTotal)))
+
+makeID = (str) ->
+    result = ''
+    for i in [0...str.length]
+        c = str.charAt(i)
+        if c == ' '
+            result += '-'
+        else if c != '(' and c != ')'
+            result += c
+    return result
+
+prepExpense = (line) ->
+    line.amount = 0
+    baseID = makeID(line.name)
+    line.inputID = baseID + '-input'
+    line.selectID = baseID + '-select'
+    for method of Line
+        line[method] = Line[method]
+
+prepTax = (line) ->
+    baseID = makeID(line.name)
+    line.outputID = baseID + '-output'
+    for method of Line
+        line[method] = Line[method]
 
 $(document).ready(->
-    for line in items
-        options = ("<option value='${ line.vals[opt] }'>${ opt }</option>" for opt of line.vals)
-        $("#items").append("
+    for line in expenses
+        prepExpense(line)
+        options = ("<option value='${ line.examples[ex] }'>${ ex }</option>" for ex of line.examples)
+        $("#expenses").append("
         <div class='ctrlHolder'>
           <div class='info'>
             <label for=''>${ line.name }</label>
             <p class='formHint'>${ if line.desc? then line.desc else '' }</p>
           </div>
           <div class='selectInputHolder'>
-          <select id='${ line.id() + '-sel' }'><option value='0'>insert an example value...</option>${ options.join('') }</select>
+            <select id='${ line.selectID }'><option value='0'>insert an example value...</option>${ options.join('') }</select>
           </div>
           <div class='textInputHolder'>
-            <span class='dollar'>$</span><input name='' id='${ line.id() }' class='textInput small' value='0' size='35' maxlength='50' type='text' />
+            <span class='dollar'>$</span><input name='' id='${ line.inputID }' class='textInput small' value='0' size='35' maxlength='50' type='text' />
           </div>
         </div>
         ")
-        $('#' + line.id()).keyup(->
-            $('#' + line.id() + '-sel').val(0)
-            update()
+        line.input = $('#' + line.inputID)
+        line.select = $('#' + line.selectID)
+        line.input.keyup(->
+            line.select.val('0')
+            line.readInput()
+            updateCalculations()
         )
-        $('#' + line.id()).blur(->
-            line.sanitize()
-            update()
+        line.input.blur(->
+            if not line.valid()
+                line.reset()
+                # No need to updateCalculations as the line has been reporting its value as 0 anyway
         )
-        $('#' + line.id() + '-sel').change(->
-            line.val($('#' + line.id() + '-sel').val())
-            update()
+        line.select.change(->
+            line.input.val(line.select.val())
+            line.readInput()
+            updateCalculations()
         )
-    for line in deductions
-        $("#deductions").append("
+    for line in taxes
+        prepTax(line)
+        $("#taxes").append("
         <div class='ctrlHolder'>
           <div class='info'>
             <label for=''>${ line.name }</label>
             <p class='formHint'>${ if line.desc? then line.desc else '' }</p>
           </div>
           <div class='textOutputHolder'>
-            <span class='dollar'>$</span><span id='${ line.id() }' class='output'></span>
+            <span class='dollar'>$</span><span id='${ line.outputID }' class='output'></span>
           </div>
         </div>
         ")
-    update()
+        line.output = $('#' + line.outputID)
+    updateCalculations()
 )
