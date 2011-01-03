@@ -85,19 +85,73 @@ expenses = [
     },
     {
         'name': 'Auto Loan Payment / Lease Payment',
-        'desc': "Loan payments are typically higher than lease payments, but you own the car in full once you're done paying them.  To learn more about buying versus leasing, read <a href=\"http://www.consumerreports.org/cro/money/credit-loan/auto-lease-or-buy-4-08/overview/auto-lease-or-buy-ov.htm\">this</a>.",
+        'desc': "Loan payments are typically higher than lease payments, but you own the car in full once you're done paying them.  To learn more about buying versus leasing, read <a href=\"http://www.consumerreports.org/cro/money/credit-loan/auto-lease-or-buy-4-08/overview/auto-lease-or-buy-ov.htm\">this</a>",
         'examples': {
             'Typical loan payment': 437,
             'Typical lease payment': 240,
         },
     },
     {
-        'name': 'Entertainment',
-        'desc': 'Budget allocated for events, home entertainment, pets, toys, hobbies, etc.',
+        'name': 'Cell Phone',
+        'desc': 'Monthly cell phone bill',
         'examples': {
-            'Typical for $60K/yr salary': 217,
-            'Typical for $40K/yr salary': 165,
+            'Typical monthly bill': 63,
+        }
+    },
+    {
+        'name': 'Entertainment',
+        'desc': 'Budget allocated for events, home entertainment, pets, toys, hobbies, etc',
+        'examples': {
             'Typical for $25K/yr salary': 125,
+            'Typical for $40K/yr salary': 165,
+            'Typical for $60K/yr salary': 217,
+        },
+    },
+    {
+        'name': 'Groceries',
+        'desc': 'Cost of the food you eat at home',
+        'examples': {
+            'Typical for $25K/yr salary': 249,
+            'Typical for $40K/yr salary': 263,
+            'Typical for $60K/yr salary': 312,
+        },
+    },
+    {
+        'name': 'Restaurants',
+        'desc': 'Cost of the eating out',
+        'examples': {
+            'Typical for $25K/yr salary': 118,
+            'Typical for $40K/yr salary': 158,
+            'Typical for $60K/yr salary': 222,
+        },
+    },
+    {
+        'name': "Renter's Insurance",
+        'desc': 'Repays you for damaged or stolen valuables, and protects you if you are responsible for injury or property damage to others',
+        'examples': {
+            "Typical renter's insurance": 9,
+        },
+    },
+    {
+        'name': 'Auto Insurance',
+        'desc': 'Provides protection against traffic collision damage and liability',
+        'examples': {
+            "Typical auto insurance": 77,
+        },
+    },
+    {
+        'name': 'Health Insurance',
+        'desc': 'Helps pay medical bills in the event of injury or illness',
+        'examples': {
+            "Typical health insurance": 90,
+        },
+    },
+    {
+        'name': 'Life Insurance (optional)',
+        'desc': 'Pays family members in the event of your death',
+        'examples': {
+            "No life insurance": 0,
+            "Typical life insurance": 12,
         },
     },
 ]
@@ -186,7 +240,7 @@ makeID = (str) ->
         c = str.charAt(i)
         if c == ' '
             result += '-'
-        else if c != '(' and c != ')' and c != '/'
+        else if c != '(' and c != ')' and c != '/' and c != "'"
             result += c
     return result
 

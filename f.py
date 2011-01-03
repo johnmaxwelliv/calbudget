@@ -24,7 +24,11 @@ def points(data):
 
 def t(data):
     p = points(data)
-    return p[0], (p[1] + p[2]) / 2, p[3]
+    print """
+            'Typical for $25K/yr salary': %d,
+            'Typical for $40K/yr salary': %d,
+            'Typical for $60K/yr salary': %d,
+    """ % (p[0], (p[1] + p[2]) / 2, p[3])
 
 def m(data):
     p = points(data)
