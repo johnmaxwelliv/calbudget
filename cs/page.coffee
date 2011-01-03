@@ -154,6 +154,32 @@ expenses = [
             "Typical life insurance": 12,
         },
     },
+    {
+        'name': 'Personal Care and Services',
+        'desc': 'Hair, nails, beard, etc',
+        'examples': {
+            'Typical for $25K/yr salary': 31,
+            'Typical for $40K/yr salary': 37,
+            'Typical for $60K/yr salary': 48,
+        },
+    },
+    {
+        'name': 'Repairs',
+        'desc': 'Car, home, etc',
+        'examples': {
+            'Typical for $25K/yr salary': 93,
+            'Typical for $40K/yr salary': 111,
+            'Typical for $60K/yr salary': 154,
+        },
+    },
+    {
+        'name': 'Vacation',
+        'desc': 'Food and lodging away from home',
+        'examples': {
+            'Average 1 vacation day/month': 244,
+            'Average 2 vacation days/month': 488,
+        },
+    },
 ]
 
 taxes = [
@@ -219,7 +245,8 @@ updateCalculations = ->
         , 1, PID)
 
     if actualTotal != false
-        $('#your-total').html(withCommas(Math.round(actualTotal)))
+        $('#monthly-gross').html(withCommas(Math.round(actualTotal)))
+        $('#annual-gross').html(withCommas(Math.round(actualTotal * 12)))
         for tax in taxes
             tax.output.html(withCommas(Math.round(tax.cost(actualTotal))))
 
