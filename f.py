@@ -2,6 +2,13 @@ def median(seq):
     seq.sort()
     return seq[len(seq) / 2]
 
+def e(s):
+    nocommas = ''
+    for c in s:
+        if c != ',':
+            nocommas += c
+    return round(eval(nocommas) / 12)
+
 def points(data):
     cur = ''
     result = []

@@ -12,9 +12,14 @@ Line = {
             v = this.input.val()
             for i in [0...v.length]
                 c = v.charAt(i)
-                if c != ','
+                if c != ',' and c != '$'
                     interm += c
-            this.amount = parseInt(interm, 10)
+            if interm
+                this.amount = parseInt(interm, 10)
+            else
+                this.amount = 0
+        if this.onRead?
+            this.onRead()
     'reset': ->
         this.input.val('0')
         this.select.val('0')
@@ -27,7 +32,7 @@ Line = {
             return false
         for i in [0...v.length]
             c = v.charAt(i)
-            if c not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',']
+            if c not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '$']
                 return false
         return true
     'sanitize': ->
@@ -37,8 +42,50 @@ Line = {
 
 expenses = [
     {
+        'name': 'Rent',
+        'desc': 'Your monthly rent',
+        'examples': {
+            'Typical rent in San Francisco area': 1069,
+            'Typical rent in Los Angeles area': 927,
+            'Typical rent in San Diego area': 924,
+        },
+    }
+    {
+        'name': 'Savings',
+        'desc': "Money you're stashing away",
+        'examples': {
+            '$50 per month': 50,
+            '$150 per month': 150,
+        },
+        'postPrep': ->
+            this.input.parent().append("
+            <table>
+              <tr><th>Years</th><td>15</td><td>30</td><td>45</td></tr>
+              <tr><th>Amount you'll have saved<br />(assuming 1% annual interest)</th><td id='a15'>$0</td><td id='a30'>$0</td><td id='a45'>$0</td></tr>
+            </table>
+            ")
+            this.a15 = $('#a15')
+            this.a30 = $('#a30')
+            this.a45 = $('#a45')
+        ,
+        'forecastAhead': (years) ->
+            deposits = years * 12
+            rate = 1.00082954
+            result = 0
+            for i in [1...(deposits + 1)]
+                result *= rate
+                result += this.amount
+            return result
+        ,
+        'onRead': ->
+            this.a15.html('$' + String(Math.round(this.forecastAhead(15))))
+            this.a30.html('$' + String(Math.round(this.forecastAhead(30))))
+            this.a45.html('$' + String(Math.round(this.forecastAhead(45))))
+        ,
+    }
+    {
         'name': 'Entertainment',
-        'desc': 'Events, home entertainment, pets, toys, hobbies, etc.',
+        'desc': 'Budget allocated for events, home entertainment, pets, toys, hobbies, etc.',
         'examples': {
             'Average for $60K/yr': 217,
             'Average for $40K/yr': 165,
@@ -173,6 +220,11 @@ $(document).ready(->
             line.readInput()
             updateCalculations()
         )
+        if line.postPrep?
+            l('doing postPrep')
+            line.postPrep()
+        else
+            l('no postPrep')
     for line in taxes
         prepTax(line)
         $("#taxes").append("
