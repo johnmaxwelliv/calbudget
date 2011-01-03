@@ -59,9 +59,9 @@ expenses = [
         },
         'postPrep': ->
             this.input.parent().append("
-            <table>
+            <table id='forecast' class='formHint'>
               <tr><th>Years</th><td>15</td><td>30</td><td>45</td></tr>
-              <tr><th>Amount you'll have saved<br />(assuming 1% annual interest)</th><td id='a15'>$0</td><td id='a30'>$0</td><td id='a45'>$0</td></tr>
+              <tr><th>Amount you'll have (assumes 1% annual interest)</th><td id='a15'>$0</td><td id='a30'>$0</td><td id='a45'>$0</td></tr>
             </table>
             ")
             this.a15 = $('#a15')

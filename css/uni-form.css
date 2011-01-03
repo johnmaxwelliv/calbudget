@@ -39,3 +39,21 @@
       /* Classes for control of the widths of the fields */
       .uniForm .small { width: 30% !important; }
       .uniForm .small{ margin-right: 4px; }
+
+#a15, #a30, #a45 {
+    width: 20%;
+}
+
+#forecast {
+    margin-left: 4px;
+    border-collapse: collapse;
+}
+
+.ctrlHolder #forecast td, .ctrlHolder #forecast th {
+    border: 1px solid #777;
+    padding: 4px;
+}
+
+.ctrlHolder.focused #forecast td, .ctrlHolder.focused #forecast th {
+    border-color: #333;
+}
