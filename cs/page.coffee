@@ -78,9 +78,9 @@ expenses = [
             return result
         ,
         'onRead': ->
-            this.a15.html('$' + String(Math.round(this.forecastAhead(15))))
-            this.a30.html('$' + String(Math.round(this.forecastAhead(30))))
-            this.a45.html('$' + String(Math.round(this.forecastAhead(45))))
+            this.a15.html('$' + withCommas(Math.round(this.forecastAhead(15))))
+            this.a30.html('$' + withCommas(Math.round(this.forecastAhead(30))))
+            this.a45.html('$' + withCommas(Math.round(this.forecastAhead(45))))
         ,
     }
     {
@@ -157,9 +157,20 @@ updateCalculations = ->
         , 1, PID)
 
     if actualTotal != false
-        $('#your-total').html(Math.round(actualTotal))
+        $('#your-total').html(withCommas(Math.round(actualTotal)))
         for tax in taxes
-            tax.output.html(Math.round(tax.cost(actualTotal)))
+            tax.output.html(withCommas(Math.round(tax.cost(actualTotal))))
+
+withCommas = (n) ->
+    interm = String(n)
+    len = interm.length
+    result = [interm.charAt(0)]
+    magicMod = len % 3
+    for i in [1...len]
+        if i % 3 == magicMod
+            result.push(',')
+        result.push(interm.charAt(i))
+    return result.join('')
 
 makeID = (str) ->
     result = ''
