@@ -49,7 +49,7 @@ expenses = [
             'Typical rent in Los Angeles area': 927,
             'Typical rent in San Diego area': 924,
         },
-    }
+    },
     {
         'name': 'Savings',
         'desc': "Money you're stashing away",
@@ -82,16 +82,24 @@ expenses = [
             this.a30.html('$' + withCommas(Math.round(this.forecastAhead(30))))
             this.a45.html('$' + withCommas(Math.round(this.forecastAhead(45))))
         ,
-    }
+    },
+    {
+        'name': 'Auto Loan Payment / Lease Payment',
+        'desc': "Loan payments are typically higher than lease payments, but you own the car in full once you're done paying them.  To learn more about buying versus leasing, read <a href=\"http://www.consumerreports.org/cro/money/credit-loan/auto-lease-or-buy-4-08/overview/auto-lease-or-buy-ov.htm\">this</a>.",
+        'examples': {
+            'Typical loan payment': 437,
+            'Typical lease payment': 240,
+        },
+    },
     {
         'name': 'Entertainment',
         'desc': 'Budget allocated for events, home entertainment, pets, toys, hobbies, etc.',
         'examples': {
-            'Average for $60K/yr': 217,
-            'Average for $40K/yr': 165,
-            'Average for $25K/yr': 125,
+            'Typical for $60K/yr salary': 217,
+            'Typical for $40K/yr salary': 165,
+            'Typical for $25K/yr salary': 125,
         },
-    }
+    },
 ]
 
 taxes = [
@@ -178,7 +186,7 @@ makeID = (str) ->
         c = str.charAt(i)
         if c == ' '
             result += '-'
-        else if c != '(' and c != ')'
+        else if c != '(' and c != ')' and c != '/'
             result += c
     return result
 
