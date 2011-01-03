@@ -36,24 +36,6 @@
 /* ----------------------------------------------------------------------------- */
 
   /* Generals */
-      .uniForm .secondaryAction{ float: left; }
-      
-      /* .inlineLabel is used for inputs within labels - checkboxes and radio buttons */
-      .uniForm .inlineLabel input,
-      .uniForm .inlineLabels .inlineLabel input,
-      .uniForm .blockLabels .inlineLabel input,
-      /* class .inlineLabel is depreciated */
-            
-      .uniForm .buttonHolder .inlineLabel,
-      .uniForm .buttonHolder label{ float: left; margin: .5em 0 0 0; width: auto; max-width: 60%; text-align: left; }
-      
-      /* When you don't want to use a label */
-      .uniForm .inlineLabels .noLabel ul{ margin-left: 34%; /* Match to width of label + gap to field */ }
-      
       /* Classes for control of the widths of the fields */
       .uniForm .small { width: 30% !important; }
       .uniForm .small{ margin-right: 4px; }
-
-/* Columns */
-.uniForm .col{ float: left; }
-.uniForm .col{ width: 50%; }

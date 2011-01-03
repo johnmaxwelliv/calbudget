@@ -1,7 +1,6 @@
 .uniForm{ background: #dde8ec; }
     .uniForm .ctrlHolder{ padding: 1em; border-bottom: 1px solid #c4ced1; }
     .uniForm .ctrlHolder.focused{ background: #e1f0f6; }
-        .uniForm label small{ font-size: .75em; color: #777; }
         
       .uniForm .textInput,
       .uniForm textarea    { padding: 4px 2px; border: 1px solid #b2babe; background: #fff;
@@ -16,25 +15,13 @@
                              text-align: right;
                            }
       .uniForm .dollar, .output { font-family: 'Courier New', Courier, monospace;
-                                  font-size: 15px;
                                 }
+      .uniForm .output { font-size: 15px; }
       .uniForm .dollar { padding: 4px 2px 0px 2px; font-size: 20px; }
       .uniForm .output { padding: 4px 8px 4px 2px; }
-          .uniForm .ctrlHolder ul li label{ font-size: .85em; }
       
-      /* Get rid of the 'glow' effect in WebKit, optional */
       .uniForm .ctrlHolder .textInput:focus,
       .uniForm .ctrlHolder textarea:focus{ outline: none; }
       
       .uniForm .formHint                    { font-size: .85em; color: #777; }
-      .uniForm .inlineLabels .formHint      { padding-top: 0em; }
       .uniForm .ctrlHolder.focused .formHint{ color: #333; }
-      
-/* ----------------------------------------------------------------------------- */
-/* ############################### Columns ##################################### */
-/* ----------------------------------------------------------------------------- */
-
-    .uniForm .col{ margin-bottom: 1.5em; }
-    /* Use .first and .last classes to control the layout/spacing of your columns */
-    .uniForm .col.first{ width: 49%; float: left; clear: none;                   }
-    .uniForm .col.last { width: 49%; float: right; clear: none; margin-right: 0; }
