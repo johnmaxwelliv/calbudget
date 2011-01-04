@@ -56,6 +56,66 @@ expenses = [
         },
     },
     {
+        'name': 'Auto Loan Payment / Lease Payment',
+        'desc': "Loan payments are typically higher than lease payments, but you own the car in full once you're done paying them.  To learn more about buying versus leasing, read <a href=\"http://www.consumerreports.org/cro/money/credit-loan/auto-lease-or-buy-4-08/overview/auto-lease-or-buy-ov.htm\">this</a>",
+        'examples': {
+            'Typical loan payment': 437,
+            'Typical lease payment': 240,
+        },
+    },
+    {
+        'name': 'Groceries',
+        'desc': 'Cost of the food you eat at home',
+        'examples': {
+            'Typical for $25K/yr salary': 249,
+            'Typical for $40K/yr salary': 263,
+            'Typical for $60K/yr salary': 312,
+        },
+    },
+    {
+        'name': 'Restaurants',
+        'desc': 'Cost of eating out',
+        'examples': {
+            'Typical for $25K/yr salary': 118,
+            'Typical for $40K/yr salary': 158,
+            'Typical for $60K/yr salary': 222,
+        },
+    },
+    {
+        'name': 'Apparel',
+        'desc': 'Clothing and shoes',
+        'examples': {
+            'Typical for $25K/yr salary': 90,
+            'Typical for $40K/yr salary': 106,
+            'Typical for $60K/yr salary': 134,
+        },
+    },
+    {
+        'name': 'Cell Phone',
+        'desc': 'Monthly cell phone bill',
+        'examples': {
+            'Typical monthly bill': 63,
+        },
+    },
+    {
+        'name': 'Repairs',
+        'desc': 'Car, home, etc',
+        'examples': {
+            'Typical for $25K/yr salary': 93,
+            'Typical for $40K/yr salary': 111,
+            'Typical for $60K/yr salary': 154,
+        },
+    },
+    {
+        'name': 'Personal Care',
+        'desc': 'Hair, nails, beard, etc',
+        'examples': {
+            'Typical for $25K/yr salary': 31,
+            'Typical for $40K/yr salary': 37,
+            'Typical for $60K/yr salary': 48,
+        },
+    },
+    {
         'name': 'Savings',
         'desc': "Money you're stashing away",
         'examples': {
@@ -87,48 +147,43 @@ expenses = [
             this.a30.html('$' + withCommas(Math.round(this.forecastAhead(30))))
             this.a45.html('$' + withCommas(Math.round(this.forecastAhead(45))))
         ,
+        'heading': '#discretionary',
     },
     {
-        'name': 'Auto Loan Payment / Lease Payment',
-        'desc': "Loan payments are typically higher than lease payments, but you own the car in full once you're done paying them.  To learn more about buying versus leasing, read <a href=\"http://www.consumerreports.org/cro/money/credit-loan/auto-lease-or-buy-4-08/overview/auto-lease-or-buy-ov.htm\">this</a>",
+        'name': 'Charitable Giving',
+        'desc': 'Donations to charities',
         'examples': {
-            'Typical loan payment': 437,
-            'Typical lease payment': 240,
+            'Typical for $25K/yr salary': 62,
+            'Typical for $40K/yr salary': 102,
+            'Typical for $60K/yr salary': 144,
         },
+        'heading': '#discretionary',
     },
     {
-        'name': 'Cell Phone',
-        'desc': 'Monthly cell phone bill',
+        'name': 'Cable TV',
         'examples': {
-            'Typical monthly bill': 63,
-        }
+            'Typical cable TV cost': 50,
+        },
+        'heading': '#discretionary',
+    },
+    {
+        'name': 'Vacation Expenses',
+        'desc': 'Food and lodging away from home',
+        'examples': {
+            'Average 1 vacation day/month': 244,
+            'Average 2 vacation days/month': 488,
+        },
+        'heading': '#discretionary',
     },
     {
         'name': 'Entertainment',
-        'desc': 'Budget allocated for events, home entertainment, pets, toys, hobbies, etc',
+        'desc': 'Budget allocated for other entertainment: events, pets, electronics, hobbies, etc',
         'examples': {
-            'Typical for $25K/yr salary': 125,
-            'Typical for $40K/yr salary': 165,
-            'Typical for $60K/yr salary': 217,
+            'Typical for $25K/yr salary': 75,
+            'Typical for $40K/yr salary': 115,
+            'Typical for $60K/yr salary': 167,
         },
-    },
-    {
-        'name': 'Groceries',
-        'desc': 'Cost of the food you eat at home',
-        'examples': {
-            'Typical for $25K/yr salary': 249,
-            'Typical for $40K/yr salary': 263,
-            'Typical for $60K/yr salary': 312,
-        },
-    },
-    {
-        'name': 'Restaurants',
-        'desc': 'Cost of the eating out',
-        'examples': {
-            'Typical for $25K/yr salary': 118,
-            'Typical for $40K/yr salary': 158,
-            'Typical for $60K/yr salary': 222,
-        },
+        'heading': '#discretionary',
     },
     {
         'name': "Renter's Insurance",
@@ -136,6 +191,7 @@ expenses = [
         'examples': {
             "Typical renter's insurance": 9,
         },
+        'heading': '#insurance',
     },
     {
         'name': 'Auto Insurance',
@@ -143,6 +199,7 @@ expenses = [
         'examples': {
             "Typical auto insurance": 77,
         },
+        'heading': '#insurance',
     },
     {
         'name': 'Health Insurance',
@@ -150,40 +207,15 @@ expenses = [
         'examples': {
             "Typical health insurance": 90,
         },
+        'heading': '#insurance',
     },
     {
         'name': 'Life Insurance (optional)',
         'desc': 'Pays family members in the event of your death',
         'examples': {
-            "No life insurance": 0,
             "Typical life insurance": 12,
         },
-    },
-    {
-        'name': 'Personal Care and Services',
-        'desc': 'Hair, nails, beard, etc',
-        'examples': {
-            'Typical for $25K/yr salary': 31,
-            'Typical for $40K/yr salary': 37,
-            'Typical for $60K/yr salary': 48,
-        },
-    },
-    {
-        'name': 'Repairs',
-        'desc': 'Car, home, etc',
-        'examples': {
-            'Typical for $25K/yr salary': 93,
-            'Typical for $40K/yr salary': 111,
-            'Typical for $60K/yr salary': 154,
-        },
-    },
-    {
-        'name': 'Vacation',
-        'desc': 'Food and lodging away from home',
-        'examples': {
-            'Average 1 vacation day/month': 244,
-            'Average 2 vacation days/month': 488,
-        },
+        'heading': '#insurance',
     },
 ]
 
@@ -316,7 +348,11 @@ $(document).ready(->
     for line in expenses
         prepExpense(line)
         options = ("<option value='${ line.examples[ex] }'>${ ex }</option>" for ex of line.examples)
-        $("#expenses").append("
+        if line.heading?
+            myDiv = $(line.heading)
+        else
+            myDiv = $("#expenses")
+        myDiv.append("
         <div class='ctrlHolder'>
           <div class='info'>
             <label for=''>${ line.name }</label>
