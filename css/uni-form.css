@@ -1,59 +1,27 @@
-/* ------------------------------------------------------------------------------ */
-/* #############################   GENERALS   ################################### */
-/* ------------------------------------------------------------------------------ */
-
-.uniForm{ margin: 0; padding: 0; position: relative; z-index: 1; } /* reset stuff */
+#budgetForm{ margin: 0; padding: 0; position: relative; z-index: 1; } /* reset stuff */
   
-  /* Some generals and more resets */
-  .uniForm fieldset{ border: none; margin: 0; padding: 0; }
-  .uniForm .info{ border: none; margin: 0; padding: 0; }
-  .uniForm .formHint{ border: none; margin: 0.8em 0 0 0; padding: 0 0 0 0; }
+  #budgetForm fieldset{ border: none; margin: 0; padding: 0; }
+  #budgetForm .info{ border: none; margin: 0; padding: 0; }
+  #budgetForm .formHint{ border: none; margin: 0.8em 0 0 0; padding: 0 0 0 0; }
     
-    /* This are the main units that contain form elements */
-    .uniForm .ctrlHolder{ margin: 0; padding: 0; clear: both; }
+    #budgetForm .ctrlHolder{ margin: 0; padding: 0; clear: both; }
     
-    /* Clear all floats */ 
-    .uniForm:after,
-      .uniForm .ctrlHolder:after, 
-          .uniForm .inlineLabel:after{ content: "."; display: block; height: 0; line-height: 0; font-size: 0; clear: both; min-height: 0; visibility: hidden; }
+    #budgetForm:after,
+      #budgetForm .ctrlHolder:after, 
+          #budgetForm .inlineLabel:after{ content: "."; display: block; height: 0; line-height: 0; font-size: 0; clear: both; min-height: 0; visibility: hidden; }
 
-/* ------------------------------------------------------------------------------ */
-/* #########################   ALTERNATE LAYOUT   ############################### */
-/* ------------------------------------------------------------------------------ */
-/*    Styles for form controls where labels are in line with the input elements   */
-/*    Set the class of the parent (preferably to a fieldset) to .inlineLabels     */
-/* ------------------------------------------------------------------------------ */
-
-      .uniForm .inlineLabels .info{ float: left; margin: .3em 2% 0 0; padding: 0; line-height: 1; position: relative; width: 22%; }
+      #budgetForm .inlineLabels .info{ float: left; margin: .3em 2% 0 0; padding: 0; line-height: 1; position: relative; width: 22%; }
       
-      /* Float the input elements */
-      .uniForm .inlineLabels .textInputHolder,
-      .uniForm .inlineLabels .selectInputHolder{ float: left; width: 37%; text-align: right; }
-      .uniForm .inlineLabels .textOutputHolder { float: left; width: 74%; text-align: right; }
+      #budgetForm .inlineLabels .textInputHolder,
+      #budgetForm .inlineLabels .selectInputHolder{ float: left; width: 37%; text-align: right; }
+      #budgetForm .inlineLabels .textOutputHolder { float: left; width: 74%; text-align: right; }
 
-/* ----------------------------------------------------------------------------- */
-/* ########################### Additional Stuff ################################ */
-/* ----------------------------------------------------------------------------- */
+      #budgetForm .small { width: 30% !important; }
+      #budgetForm .small{ margin-right: 4px; }
 
-  /* Generals */
-      /* Classes for control of the widths of the fields */
-      .uniForm .small { width: 30% !important; }
-      .uniForm .small{ margin-right: 4px; }
+        #a15, #a30, #a45 { width: 20%; }
 
-#a15, #a30, #a45 {
-    width: 20%;
-}
+        #forecast { margin-left: 4px; border-collapse: collapse; }
 
-#forecast {
-    margin-left: 4px;
-    border-collapse: collapse;
-}
-
-.ctrlHolder #forecast td, .ctrlHolder #forecast th {
-    border: 1px solid #777;
-    padding: 4px;
-}
-
-.ctrlHolder.focused #forecast td, .ctrlHolder.focused #forecast th {
-    border-color: #333;
-}
+        .ctrlHolder #forecast td, .ctrlHolder #forecast th { border: 1px solid #777; padding: 4px; }
+        .ctrlHolder.focused #forecast td, .ctrlHolder.focused #forecast th { border-color: #333; }

@@ -1,9 +1,9 @@
-.uniForm{ background: #dde8ec; }
-    .uniForm .ctrlHolder{ padding: 1em; border-bottom: 1px solid #c4ced1; }
-    .uniForm .ctrlHolder.focused{ background: #e1f0f6; }
+#budgetForm{ background: #dde8ec; }
+    #budgetForm .ctrlHolder{ padding: 1em; border-bottom: 1px solid #c4ced1; }
+    #budgetForm .ctrlHolder.focused{ background: #e1f0f6; }
         
-      .uniForm .textInput,
-      .uniForm textarea    { padding: 4px 2px; border: 1px solid #b2babe; background: #fff;
+      #budgetForm .textInput,
+      #budgetForm textarea    { padding: 4px 2px; border: 1px solid #b2babe; background: #fff;
                              /* CSS3 */
                              border-radius:         3px;
                              -webkit-border-radius: 3px;
@@ -14,14 +14,14 @@
                              font-size: 15px;
                              text-align: right;
                            }
-      .uniForm .dollar, .output { font-family: 'Courier New', Courier, monospace;
+      #budgetForm .dollar, .output { font-family: 'Courier New', Courier, monospace;
                                 }
-      .uniForm .output { font-size: 15px; }
-      .uniForm .dollar { padding: 4px 2px 0px 2px; font-size: 20px; }
-      .uniForm .output { padding: 4px 8px 4px 2px; }
+      #budgetForm .output { font-size: 15px; }
+      #budgetForm .dollar { padding: 4px 2px 0px 2px; font-size: 20px; }
+      #budgetForm .output { padding: 4px 8px 4px 2px; }
       
-      .uniForm .ctrlHolder .textInput:focus,
-      .uniForm .ctrlHolder textarea:focus{ outline: none; }
+      #budgetForm .ctrlHolder .textInput:focus,
+      #budgetForm .ctrlHolder textarea:focus{ outline: none; }
       
-      .uniForm .formHint                    { font-size: .85em; color: #777; }
-      .uniForm .ctrlHolder.focused .formHint{ color: #333; }
+      #budgetForm .formHint                    { font-size: .85em; color: #777; }
+      #budgetForm .ctrlHolder.focused .formHint{ color: #333; }

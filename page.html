@@ -11,8 +11,7 @@
       
       @import "/media/css/uni-form.css";
       
-      /* You don't need these, they are here to tune up the page */
-      html{ color: #343434; background: #bcc2c6 url(bg.png); font-size: 14px; line-height: 1.5; font-family: "Lucida Sans Unicode", "Lucida Grande", Arial, Verdana, sans-serif; }
+      html{ color: #343434; background: #bcc2c6; font-size: 14px; line-height: 1.5; font-family: "Lucida Sans Unicode", "Lucida Grande", Arial, Verdana, sans-serif; }
         body{}
           
           a:link,
@@ -24,10 +23,10 @@
           
           h1{ margin: 42px auto 28px auto; width: 284px; }
           h2{ font-size: 1.25em; }
-          .uniForm h2{ margin: 1em 0 1em 1.15em; }
+          #budgetForm h2{ margin: 1em 0 1em 1.15em; }
           fieldset h3{ margin: 1.5em -28px; padding: 14px 28px; line-height: 1; background: #efefef; color: #343434; }
           
-          .uniForm{ width: 960px; background: #fff; margin: 28px auto; padding: 28px;
+          #budgetForm{ width: 960px; background: #fff; margin: 28px auto; padding: 28px;
                     /* CSS3 */
                     border-radius:         12px;
                     -webkit-border-radius: 12px;
@@ -51,7 +50,7 @@
           #footer{ width: 55%; margin: 28px auto; text-align: center; font-size: .75em; color: #777; }
           
           /* IE6 fixes for the page */
-          * html form.uniForm{ overflow: hidden; }
+          * html form#budgetForm{ overflow: hidden; }
           	* html .header{ zoom: 1; overflow: hidden;}
 
     </style>
@@ -65,23 +64,19 @@
     <!--[if lte ie 7]>
       <style type="text/css" media="screen">
         /* Move these to your IE6/7 specific stylesheet if possible */
-        .uniForm, .uniForm fieldset, .uniForm .ctrlHolder, .uniForm .formHint, .uniForm .buttonHolder, .uniForm .ctrlHolder ul{ zoom:1; }
+        #budgetForm, #budgetForm fieldset, #budgetForm .ctrlHolder, #budgetForm .formHint, #budgetForm .buttonHolder, #budgetForm .ctrlHolder ul{ zoom:1; }
       </style>
     <![endif]-->
 
   </head>
 
   <body>
-
-    <p class="intro">
-      This is an example form demonstrating all of the units offered by Uni–Form, along with suggested message handling, form actions and style.
-    </p>
     
-    <form action="#" class="uniForm">
+    <form action="#" id="budgetForm">
       
       <div class="header">
-        <h2>Default Style</h2>
-        <p>Author: <a href="http://sprawsm.com/">Dragan Babić</a></p>
+        <h2>Personal Budget Calculator</h2>
+        <p>For California residents.  Modify the numbers in the boxes on the right, then scroll down to see what gross income you'll need.</a></p>
       </div>
       
       <fieldset id="spreadsheet" class="inlineLabels">
@@ -95,7 +90,7 @@
           <div class='ctrlHolder'>
             <div class='info'>
               <label for=''>Monthly Income</label>
-              <p class='formHint'>The monthly gross income you'll need to afford everything</p>
+              <p class='formHint'>The monthly pre-tax income you'll need to afford everything</p>
             </div>
             <div class='textOutputHolder'>
               <span class='dollar'>$</span><span id='monthly-gross' class='output'></span>
@@ -104,7 +99,7 @@
           <div class='ctrlHolder'>
             <div class='info'>
               <label for=''>Annual Income</label>
-              <p class='formHint'>The equivalent annual gross income you'll need to afford everything</p>
+              <p class='formHint'>The equivalent annual pre-tax income you'll need to afford everything</p>
             </div>
             <div class='textOutputHolder'>
               <span class='dollar'>$</span><span id='annual-gross' class='output'></span>
@@ -116,7 +111,7 @@
     </form>
 
     <div id="footer">
-      <p>Uni-Form is created by <a href="http://sprawsm.com/" title="Dragan is the founder of Superawesome">Dragan Babić</a> and is licensed under the MIT license.</p>
+      <p>Typical spending values are based on <a href="http://www.bls.gov/cex/">the Bureau of Labor Statistics' Customer Expenditure Survey</a> and a variety of other sources.  State tax bracket data based on <a href="http://www.ftb.ca.gov/forms/catxrate_exmpt07.shtml">this document</a>.  Federal tax bracket data based on <a href="http://www.irs.gov/pub/irs-drop/rp-09-50.pdf">this document</a>.</p>
     </div>
 
   </body>

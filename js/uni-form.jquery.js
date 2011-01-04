@@ -1,14 +1,4 @@
-// Author: Ilija Studen for the purposes of Uni–Form
-
-// Modified by Aris Karageorgos to use the parents function
-
-// Modified by Toni Karlheinz to support input fields' text
-// coloring and removal of their initial values on focus
-
-// Modified by Jason Brumwell for optimization, addition
-// of valid and invalid states and default data attribues
-
-jQuery.fn.uniform = function(settings) {
+jQuery.fn.budgetForm = function(settings) {
     settings = jQuery.extend({
         focused_class  : 'focused',
         holder_class   : 'ctrlHolder',
@@ -32,8 +22,7 @@ jQuery.fn.uniform = function(settings) {
         });
     });
 };
-// Auto set on page load...
 $(document).ready(function() {
-    jQuery('form').uniform();
+    jQuery('form').budgetForm();
 });
 

@@ -206,7 +206,7 @@ taxes = [
         'limit': 8500,
     },
     {
-        'name': 'State Income Tax (approximate)',
+        'name': 'State Income Tax',
         'desc': 'Money for the state of California',
         'portion': 0.03,
         'cost': (income) ->
@@ -219,7 +219,7 @@ taxes = [
         ,
     },
     {
-        'name': 'Federal Income Tax (approximate)',
+        'name': 'Federal Income Tax',
         'desc': 'Money for the federal government',
         'cost': (income) ->
             if income < 697 then 0.1 * income
