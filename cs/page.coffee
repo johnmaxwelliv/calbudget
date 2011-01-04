@@ -116,6 +116,12 @@ expenses = [
         },
     },
     {
+        'name': 'Other essential spending',
+        'desc': 'Whatever else you need to spend money on',
+        'examples': {
+        },
+    },
+    {
         'name': 'Savings',
         'desc': "Money you're stashing away",
         'examples': {
@@ -182,6 +188,13 @@ expenses = [
             'Typical for $25K/yr salary': 75,
             'Typical for $40K/yr salary': 115,
             'Typical for $60K/yr salary': 167,
+        },
+        'heading': '#discretionary',
+    },
+    {
+        'name': 'Other discretionary spending',
+        'desc': 'Whatever else you want to spend money on',
+        'examples': {
         },
         'heading': '#discretionary',
     },
