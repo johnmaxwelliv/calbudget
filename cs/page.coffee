@@ -2,8 +2,13 @@ l = (output) ->
     console.log(output)
 
 Line = {
-    'cost': (income) ->
+    'flat': (income) ->
         return income * this.portion
+    'payroll': (income) ->
+        if income < this.limit
+            return income * this.portion
+        else
+            return this.limit * this.portion
     'readInput': ->
         if not this.valid()
             this.amount = 0
@@ -191,22 +196,39 @@ taxes = [
     {
         'name': 'State Disability Insurance',
         'desc': "Pays for California's disability income replacement program",
-        'portion': 0.011,
+        'portion': 0.012,
+        'limit': 7776,
     },
     {
         'name': 'Social Security (FICA)',
         'desc': 'Pays for several social welfare programs, including retirement benefits',
         'portion': 0.062,
+        'limit': 8500,
     },
     {
         'name': 'State Income Tax (approximate)',
         'desc': 'Money for the state of California',
         'portion': 0.03,
+        'cost': (income) ->
+            if income < 568 then 0.0 + .01 * (income - 0)
+            else if income < 1348 then 5.2 + .02 * (income - 568)
+            else if income < 2128 then 21.3 + .04 * (income - 1348)
+            else if income < 2955 then 52.6 + .06 * (income - 2128)
+            else if income < 3734 then 102.6 + .08 * (income - 2955)
+            else 164.0 + .093 * (income - 3734)
+        ,
     },
     {
         'name': 'Federal Income Tax (approximate)',
         'desc': 'Money for the federal government',
-        'portion': 0.15,
+        'cost': (income) ->
+            if income < 697 then 0.1 * income
+            else if income < 2833 then 69.4 + .15 * (income - 697)
+            else if income < 6866 then 390.2 + .25 * (income - 2833)
+            else if income < 14320 then 1398.2 + .28 * (income - 6866)
+            else if income < 31137 then 3485.2 + .33 * (income - 14320)
+            else 9035.2 + .35 * (income - 31137)
+        ,
     },
 ]
 
@@ -284,6 +306,11 @@ prepTax = (line) ->
     line.outputID = baseID + '-output'
     for method of Line
         line[method] = Line[method]
+    if not line.cost?
+        if line.limit?
+            line.cost = line.payroll
+        else
+            line.cost = line.flat
 
 $(document).ready(->
     for line in expenses

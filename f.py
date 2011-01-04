@@ -2,6 +2,23 @@ def median(seq):
     seq.sort()
     return seq[len(seq) / 2]
 
+def db12(s):
+    cur = ''
+    result = ''
+    for c in s:
+        if c in '1234567890':
+            cur += c
+        elif cur:
+            result += str(int(cur) / 12)
+            cur = ''
+            result += c
+        else:
+            result += c
+    if cur:
+        result += str(int(cur) / 12)
+    result += c
+    return result
+
 def e(s):
     nocommas = ''
     for c in s:
