@@ -348,10 +348,7 @@ $(document).ready(->
             updateCalculations()
         )
         if line.postPrep?
-            l('doing postPrep')
             line.postPrep()
-        else
-            l('no postPrep')
     for line in taxes
         prepTax(line)
         $("#taxes").append("
