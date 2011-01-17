@@ -67,27 +67,27 @@ expenses = [
         'name': 'Groceries',
         'desc': 'Cost of the food you eat at home',
         'examples': {
-            'Typical for $25K/yr salary': 249,
-            'Typical for $40K/yr salary': 263,
-            'Typical for $60K/yr salary': 312,
+            'Typical for $25K/yr salary': 129,
+            'Typical for $40K/yr salary': 137,
+            'Typical for $60K/yr salary': 162,
         },
     },
     {
         'name': 'Restaurants',
         'desc': 'Cost of eating out',
         'examples': {
-            'Typical for $25K/yr salary': 118,
-            'Typical for $40K/yr salary': 158,
-            'Typical for $60K/yr salary': 222,
+            'Typical for $25K/yr salary': 68,
+            'Typical for $40K/yr salary': 91,
+            'Typical for $60K/yr salary': 127,
         },
     },
     {
         'name': 'Apparel',
         'desc': 'Clothing and shoes',
         'examples': {
-            'Typical for $25K/yr salary': 90,
-            'Typical for $40K/yr salary': 106,
-            'Typical for $60K/yr salary': 134,
+            'Typical for $25K/yr salary': 51,
+            'Typical for $40K/yr salary': 60,
+            'Typical for $60K/yr salary': 76,
         },
     },
     {
@@ -110,9 +110,9 @@ expenses = [
         'name': 'Personal Care',
         'desc': 'Hair, nails, beard, etc',
         'examples': {
-            'Typical for $25K/yr salary': 31,
-            'Typical for $40K/yr salary': 37,
-            'Typical for $60K/yr salary': 48,
+            'Typical for $25K/yr salary': 18,
+            'Typical for $40K/yr salary': 21,
+            'Typical for $60K/yr salary': 27,
         },
     },
     {
@@ -185,9 +185,9 @@ expenses = [
         'name': 'Entertainment',
         'desc': 'Budget allocated for other entertainment: events, pets, electronics, hobbies, etc',
         'examples': {
-            'Typical for $25K/yr salary': 75,
-            'Typical for $40K/yr salary': 115,
-            'Typical for $60K/yr salary': 167,
+            'Typical for $25K/yr salary': 42,
+            'Typical for $40K/yr salary': 64,
+            'Typical for $60K/yr salary': 93,
         },
         'heading': '#discretionary',
     },
