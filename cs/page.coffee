@@ -359,58 +359,60 @@ prepTax = (line) ->
 
 $(document).ready(->
     for line in expenses
-        prepExpense(line)
-        options = ("<option value='${ line.examples[ex] }'>${ ex }</option>" for ex of line.examples)
-        if line.heading?
-            myDiv = $(line.heading)
-        else
-            myDiv = $("#expenses")
-        myDiv.append("
-        <div class='ctrlHolder'>
-          <div class='info'>
-            <label for=''>${ line.name }</label>
-            <p class='formHint'>${ if line.desc? then line.desc else '' }</p>
-          </div>
-          <div class='selectInputHolder'>
-            <select id='${ line.selectID }'><option value='0'>insert an example value...</option>${ options.join('') }</select>
-          </div>
-          <div class='textInputHolder'>
-            <span class='dollar'>$</span><input name='' id='${ line.inputID }' class='textInput small' value='0' size='35' maxlength='50' type='text' />
-          </div>
-        </div>
-        ")
-        line.input = $('#' + line.inputID)
-        line.select = $('#' + line.selectID)
-        line.input.keyup(->
-            line.select.val('0')
-            line.readInput()
-            updateCalculations()
-        )
-        line.input.blur(->
-            if not line.valid()
-                line.reset()
-                # No need to updateCalculations as the line has been reporting its value as 0 anyway
-        )
-        line.select.change(->
-            line.input.val(line.select.val())
-            line.readInput()
-            updateCalculations()
-        )
-        if line.postPrep?
-            line.postPrep()
+        do (line) ->
+            prepExpense(line)
+            options = ("<option value='#{ line.examples[ex] }'>#{ ex }</option>" for ex of line.examples)
+            if line.heading?
+                myDiv = $(line.heading)
+            else
+                myDiv = $("#expenses")
+            myDiv.append("
+            <div class='ctrlHolder'>
+              <div class='info'>
+                <label for=''>#{ line.name }</label>
+                <p class='formHint'>#{ if line.desc? then line.desc else '' }</p>
+              </div>
+              <div class='selectInputHolder'>
+                <select id='#{ line.selectID }'><option value='0'>insert an example value...</option>#{ options.join('') }</select>
+              </div>
+              <div class='textInputHolder'>
+                <span class='dollar'>$</span><input name='' id='#{ line.inputID }' class='textInput small' value='0' size='35' maxlength='50' type='text' />
+              </div>
+            </div>
+            ")
+            line.input = $('#' + line.inputID)
+            line.select = $('#' + line.selectID)
+            line.input.keyup(->
+                line.select.val('0')
+                line.readInput()
+                updateCalculations()
+            )
+            line.input.blur(->
+                if not line.valid()
+                    line.reset()
+                    # No need to updateCalculations as the line has been reporting its value as 0 anyway
+            )
+            line.select.change(->
+                line.input.val(line.select.val())
+                line.readInput()
+                updateCalculations()
+            )
+            if line.postPrep?
+                line.postPrep()
     for line in taxes
-        prepTax(line)
-        $("#taxes").append("
-        <div class='ctrlHolder'>
-          <div class='info'>
-            <label for=''>${ line.name }</label>
-            <p class='formHint'>${ if line.desc? then line.desc else '' }</p>
-          </div>
-          <div class='textOutputHolder'>
-            <span class='dollar'>$</span><span id='${ line.outputID }' class='output'></span>
-          </div>
-        </div>
-        ")
-        line.output = $('#' + line.outputID)
+        do (line) ->
+            prepTax(line)
+            $("#taxes").append("
+            <div class='ctrlHolder'>
+              <div class='info'>
+                <label for=''>#{ line.name }</label>
+                <p class='formHint'>#{ if line.desc? then line.desc else '' }</p>
+              </div>
+              <div class='textOutputHolder'>
+                <span class='dollar'>$</span><span id='#{ line.outputID }' class='output'></span>
+              </div>
+            </div>
+            ")
+            line.output = $('#' + line.outputID)
     updateCalculations()
 )
