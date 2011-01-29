@@ -1,6 +1,12 @@
 l = (output) ->
     console.log(output)
 
+max = (a, b) ->
+    if b > a
+        b
+    else
+        a
+
 Line = {
     'flat': (income) ->
         return income * this.portion
@@ -232,6 +238,17 @@ expenses = [
     },
 ]
 
+dependents = {
+    'name': 'Dependents',
+    'desc': 'The number of family members other than yourself you support',
+    'examples': {
+        "You support just yourself": 0,
+        "You support ourself and one other": 1,
+        "You support yourself and two others": 2,
+    },
+    'heading': '#taxes',
+}
+
 taxes = [
     {
         'name': 'Medicare',
@@ -254,7 +271,9 @@ taxes = [
         'name': 'State Income Tax',
         'desc': 'Money for the state of California',
         'portion': 0.03,
-        'cost': (income) ->
+        'cost': (income, dependents) ->
+            this.simple_cost(max(0, income - (dependents + 1) * 8))
+        'simple_cost': (income) ->
             if income < 568 then 0.0 + .01 * (income - 0)
             else if income < 1348 then 5.2 + .02 * (income - 568)
             else if income < 2128 then 21.3 + .04 * (income - 1348)
@@ -266,7 +285,9 @@ taxes = [
     {
         'name': 'Federal Income Tax',
         'desc': 'Money for the federal government',
-        'cost': (income) ->
+        'cost': (income, dependents) ->
+            this.simple_cost(max(0, income - (dependents + 1) * 304))
+        'simple_cost': (income) ->
             if income < 697 then 0.1 * income
             else if income < 2833 then 69.4 + .15 * (income - 697)
             else if income < 6866 then 390.2 + .25 * (income - 2833)
@@ -295,18 +316,19 @@ updateCalculations = ->
     PID = startTime.getMilliseconds()
     latestPID = PID
 
+    dependentCount = dependents.amount
     totalSpending = 0
     for expense in expenses
         totalSpending += expense.amount
     lowerBound = totalSpending
     for tax in taxes
-        lowerBound += tax.cost(lowerBound)
+        lowerBound += tax.cost(lowerBound, dependentCount)
 
     actualTotal = lowestThatFits(lowerBound, lowerBound * 2,
         (income) ->
             remaining = income
             for tax in taxes
-                remaining -= tax.cost(income)
+                remaining -= tax.cost(income, dependentCount)
             remaining -= totalSpending
             return remaining >= 0
         , 1, PID)
@@ -315,7 +337,8 @@ updateCalculations = ->
         $('#monthly-gross').html(withCommas(Math.round(actualTotal)))
         $('#annual-gross').html(withCommas(Math.round(actualTotal * 12)))
         for tax in taxes
-            tax.output.html(withCommas(Math.round(tax.cost(actualTotal))))
+            tax.output.html(withCommas(Math.round(tax.cost(actualTotal, dependentCount))))
+    l('bar')
 
 withCommas = (n) ->
     interm = String(n)
@@ -357,8 +380,11 @@ prepTax = (line) ->
         else
             line.cost = line.flat
 
+inputLines = (expense for expense in expenses)
+inputLines.push(dependents)
+
 $(document).ready(->
-    for line in expenses
+    for line in inputLines
         do (line) ->
             prepExpense(line)
             options = ("<option value='#{ line.examples[ex] }'>#{ ex }</option>" for ex of line.examples)
