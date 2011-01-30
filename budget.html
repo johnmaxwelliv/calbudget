@@ -10,7 +10,7 @@
           
     <style type="text/css" media="screen">
       
-      @import "css/function.css";
+      @import "./css/function.css";
       
       html{ color: #343434; background: #bcc2c6; font-size: 14px; line-height: 1.5; font-family: "Lucida Sans Unicode", "Lucida Grande", Arial, Verdana, sans-serif; }
         body{}
@@ -26,7 +26,7 @@
           h2{ font-size: 1.25em; }
           fieldset h3{ margin: 1.5em -28px; padding: 14px 28px; line-height: 1; background: #efefef; color: #343434; }
           
-          #budgetForm{ width: 960px; background: #fff; margin: 28px auto; padding: 28px;
+          #budgetForm{ width: 800px; background: #fff; margin: 28px auto; padding: 28px;
                     /* CSS3 */
                     border-radius:         12px;
                     -webkit-border-radius: 12px;
@@ -55,11 +55,11 @@
 
     </style>
     
-    <link href="css/style.css" media="screen" rel="stylesheet" />
+    <link href="./css/style.css" media="screen" rel="stylesheet" />
     
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-    <script src="js/budget-form.jquery.js" type="text/javascript"></script>
-    <script src="cs/page.js" type="text/javascript"></script>
+    <script src="./js/budget-form.jquery.js" type="text/javascript"></script>
+    <script src="./cs/page.js" type="text/javascript"></script>
     
     <!--[if lte ie 7]>
       <style type="text/css" media="screen">
@@ -75,27 +75,28 @@
     <form action="#" id="budgetForm">
       
       <div class="header">
-        <h2>Personal Budget Calculator</h2>
-        <p>Modify the numbers in the boxes on the right, then scroll down to see what pre-tax income you'll need to cover your expenses.  For single California residents.  All expenses are monthly.</p>
+        <h2>Personal Budget Calculator <noscript>(REQUIRES JAVASCRIPT)</noscript></h2>
+        <p>Modify the numbers in the boxes on the right, then scroll down to see what pre-tax income you'll need to cover your expenses.  For California residents.</p>
       </div>
       
       <fieldset id="spreadsheet" class="inlineLabels">
         <div id="expenses">
+          <h3>Monthly Required Expenses</h3>
         </div>
         <div id="discretionary">
-          <h3>Discretionary Expenses</h3>
+          <h3>Monthly Discretionary Expenses</h3>
         </div>
         <div id="insurance">
-          <h3>Insurance</h3>
+          <h3>Monthly Insurance</h3>
         </div>
         <div id="taxes">
-          <h3>Taxes</h3>
+          <h3>Monthly Taxes</h3>
         </div>
         <div id="income">
           <h3>Gross Income Required</h3>
           <div class='ctrlHolder'>
             <div class='info'>
-              <label for=''>Monthly Income</label>
+              <label for=''>Monthly Gross Income</label>
               <p class='formHint'>The monthly pre-tax income you'll need to afford everything</p>
             </div>
             <div class='textOutputHolder'>
@@ -104,7 +105,7 @@
           </div>
           <div class='ctrlHolder'>
             <div class='info'>
-              <label for=''>Annual Income</label>
+              <label for=''>Annual Gross Income</label>
               <p class='formHint'>The equivalent annual pre-tax income you'll need to afford everything</p>
             </div>
             <div class='textOutputHolder'>

@@ -54,7 +54,7 @@ Line = {
 expenses = [
     {
         'name': 'Rent',
-        'desc': 'Your monthly rent',
+        'desc': 'Like all values, this is monthly',
         'examples': {
             'Typical rent in San Francisco area': 1069,
             'Typical rent in Los Angeles area': 927,
@@ -242,8 +242,7 @@ dependents = {
     'name': 'Dependents',
     'desc': 'The number of family members other than yourself you support',
     'examples': {
-        "You support just yourself": 0,
-        "You support ourself and one other": 1,
+        "You support yourself and one other": 1,
         "You support yourself and two others": 2,
     },
     'heading': '#taxes',
@@ -338,7 +337,6 @@ updateCalculations = ->
         $('#annual-gross').html(withCommas(Math.round(actualTotal * 12)))
         for tax in taxes
             tax.output.html(withCommas(Math.round(tax.cost(actualTotal, dependentCount))))
-    l('bar')
 
 withCommas = (n) ->
     interm = String(n)
